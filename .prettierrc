@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json.schemastore.org/prettierrc",
+  "semi": true,
+  "singleQuote": true,
+  "printWidth": 100,
+  "tabWidth": 2,
+  "trailingComma": "all",
+  "bracketSpacing": true,
+  "bracketSameLine": false,
+  "arrowParens": "always",
+  "endOfLine": "auto",
+  "useTabs": false,
+  "jsxSingleQuote": false,
+  "overrides": [{ "files": ["**/*.md"], "options": { "printWidth": 120, "proseWrap": "always" } }],
+  "plugins": [
+    "@trivago/prettier-plugin-sort-imports",
+    "prettier-plugin-css-order",
+    "prettier-plugin-tailwindcss"
+  ],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true,
+  "importOrderCaseInsensitive": true,
+  "importOrder": [
+    "^react$",
+    "^next(/.*)?$",
+    "<THIRD_PARTY_MODULES>",
+    "^@/(app|components|features|lib|hooks|styles)(/.*)?$",
+    "^(?:@/)?(?:.*?/)?generated(?:/.*)?$",
+    "^@/(.*)$",
+    "^[./]",
+    ".*\\.(css|scss|sass)$",
+    ".*\\.(png|jpe?g|gif|webp|svg)$"
+  ]
+}

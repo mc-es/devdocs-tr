@@ -1,0 +1,11 @@
+.next
+out
+build
+dist
+.next/cache
+storybook-static
+node_modules
+.turbo
+.vercel
+coverage
+**/*.min.*

@@ -1,0 +1,4 @@
+{
+  "*.{js,jsx,ts,tsx}": ["npm run format:eslint", "npm run format:prettier"],
+  "*.{json,md,mdx,css}": ["npm run format:prettier"]
+}

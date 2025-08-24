@@ -1,0 +1,1057 @@
+<!doctype html>
+<html lang="tr" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TR Docs Girişimi • Anasayfa</title>
+    <meta name="color-scheme" content="dark light" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* ===========================
+         Tema değişkenleri ve reset
+         =========================== */
+      :root {
+        /* Dark (default) */
+        --bg: #0a0b0f;
+        --text: #e7e9ee;
+        --muted: #a6adbb;
+        --card: rgba(255, 255, 255, 0.06);
+        --card-border: rgba(255, 255, 255, 0.18);
+        --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+        --radius: 16px;
+        --code-bg: rgba(255, 255, 255, 0.04);
+
+        --g1: 255, 90, 120;
+        --g2: 120, 90, 255;
+        --g3: 40, 200, 255;
+        --g4: 60, 255, 180;
+
+        --container: 1120px;
+        --nav-h: 72px;
+      }
+      :root[data-theme='light'] {
+        --bg: #f7f8fb;
+        --text: #0b0d14;
+        --muted: #5b6473;
+        --card: rgba(255, 255, 255, 0.6);
+        --card-border: rgba(10, 10, 11, 0.1);
+        --shadow: 0 8px 24px rgba(12, 16, 24, 0.12);
+        --code-bg: rgba(0, 0, 0, 0.06);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family:
+          'Inter',
+          system-ui,
+          -apple-system,
+          Segoe UI,
+          Roboto,
+          Arial,
+          sans-serif;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      img {
+        display: block;
+        max-width: 100%;
+      }
+      button {
+        cursor: pointer;
+        font: inherit;
+      }
+      pre {
+        margin: 0;
+      }
+
+      /* ===========================
+         Arkaplan
+         =========================== */
+      .bg {
+        position: fixed;
+        z-index: -2;
+        animation: gradientShift 18s ease-in-out infinite alternate;
+        inset: 0;
+        background:
+          radial-gradient(1200px 600px at 10% 10%, rgba(var(--g2), 0.18), transparent 60%),
+          radial-gradient(900px 500px at 90% 20%, rgba(var(--g1), 0.16), transparent 60%),
+          radial-gradient(900px 500px at 20% 90%, rgba(var(--g3), 0.14), transparent 60%),
+          radial-gradient(700px 500px at 85% 80%, rgba(var(--g4), 0.12), transparent 60%),
+          linear-gradient(180deg, #07080c 0%, #0b0c12 60%, #0a0b0f 100%);
+      }
+      :root[data-theme='light'] .bg {
+        background:
+          radial-gradient(1200px 600px at 10% 10%, rgba(var(--g2), 0.18), transparent 60%),
+          radial-gradient(900px 500px at 90% 20%, rgba(var(--g1), 0.16), transparent 60%),
+          radial-gradient(900px 500px at 20% 90%, rgba(var(--g3), 0.12), transparent 60%),
+          radial-gradient(700px 500px at 85% 80%, rgba(var(--g4), 0.1), transparent 60%),
+          linear-gradient(180deg, #eef2f9 0%, #f7f9fd 60%, #ffffff 100%);
+      }
+      .bg::before,
+      .bg::after {
+        position: absolute;
+        z-index: -1;
+        mix-blend-mode: screen;
+        filter: blur(40px) saturate(120%);
+        animation: floatMesh 24s ease-in-out infinite;
+        inset: -20%;
+        background:
+          radial-gradient(40% 35% at 30% 30%, rgba(var(--g2), 0.18), transparent 60%),
+          radial-gradient(35% 30% at 70% 60%, rgba(var(--g1), 0.16), transparent 60%),
+          radial-gradient(30% 25% at 60% 20%, rgba(var(--g3), 0.12), transparent 60%);
+        content: '';
+      }
+      .bg::after {
+        transform: scale(1.2);
+        opacity: 0.8;
+        animation-duration: 32s;
+        animation-direction: alternate-reverse;
+      }
+      @keyframes gradientShift {
+        0% {
+          filter: saturate(105%) brightness(100%);
+        }
+        100% {
+          filter: saturate(120%) brightness(110%);
+        }
+      }
+      @keyframes floatMesh {
+        0% {
+          transform: translate3d(0, 0, 0) scale(1);
+        }
+        50% {
+          transform: translate3d(2%, -1%, 0) scale(1.05);
+        }
+        100% {
+          transform: translate3d(-2%, 1%, 0) scale(1.02);
+        }
+      }
+
+      /* ===========================
+         Genel yerleşim
+         =========================== */
+      .wrap {
+        margin-inline: auto;
+        padding-inline: 24px;
+        width: min(100%, var(--container));
+      }
+      .skip {
+        position: absolute;
+        top: auto;
+        left: -9999px;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+      }
+      .skip:focus {
+        position: static;
+        border-radius: 8px;
+        background: #111;
+        padding: 8px 10px;
+        width: auto;
+        height: auto;
+        color: #fff;
+      }
+
+      /* ===========================
+         Navbar
+         =========================== */
+      .nav {
+        display: flex;
+        position: sticky;
+        top: 0;
+        align-items: center;
+        z-index: 10;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--card-border);
+        background: color-mix(in oklab, transparent 70%, rgba(255, 255, 255, 0.06));
+        height: var(--nav-h);
+      }
+      .nav-inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 800;
+        letter-spacing: 0.2px;
+      }
+      .logo {
+        box-shadow:
+          0 8px 24px rgba(0, 0, 0, 0.45),
+          inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+        border-radius: 12px;
+        background: conic-gradient(
+          from 140deg,
+          rgba(var(--g1), 1),
+          rgba(var(--g2), 1),
+          rgba(var(--g3), 1),
+          rgba(var(--g4), 1),
+          rgba(var(--g1), 1)
+        );
+        width: 36px;
+        height: 36px;
+      }
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+      .nav-links a {
+        position: relative;
+        padding: 8px 0;
+        color: var(--muted);
+      }
+      .nav-links a::after {
+        position: absolute;
+        right: 0;
+        bottom: -2px;
+        left: 0;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.35s ease;
+        border-radius: 2px;
+        background: linear-gradient(
+          90deg,
+          rgba(var(--g1), 1),
+          rgba(var(--g2), 1),
+          rgba(var(--g3), 1)
+        );
+        height: 2px;
+        content: '';
+      }
+      .nav-links a:hover {
+        color: var(--text);
+      }
+      .nav-links a:hover::after {
+        transform: scaleX(1);
+      }
+
+      /* Tema toggle */
+      .theme-toggle {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .theme-toggle .sun {
+        display: inline;
+      }
+      .theme-toggle .moon {
+        display: none;
+      }
+      html[data-theme='light'] .theme-toggle .sun {
+        display: none;
+      }
+      html[data-theme='light'] .theme-toggle .moon {
+        display: inline;
+      }
+
+      /* ===========================
+         Ortak UI
+         =========================== */
+      .btn {
+        --b: linear-gradient(
+          90deg,
+          rgba(var(--g1), 1),
+          rgba(var(--g2), 1),
+          rgba(var(--g3), 1),
+          rgba(var(--g4), 1)
+        );
+        display: inline-flex;
+        position: relative;
+        align-items: center;
+        gap: 10px;
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease,
+          background 0.4s ease;
+        box-shadow: var(--shadow);
+        border: 1.5px solid transparent;
+        border-radius: 12px;
+        background:
+          linear-gradient(var(--bg), var(--bg)) padding-box,
+          var(--b) border-box;
+        padding: 10px 14px;
+        color: var(--text);
+        font-weight: 600;
+      }
+      .btn:hover {
+        transform: translateY(-1px);
+      }
+      .btn.ghost {
+        border: 1px solid var(--card-border);
+        background: rgba(255, 255, 255, 0.06);
+      }
+      :root[data-theme='light'] .btn.ghost {
+        background: rgba(0, 0, 0, 0.04);
+      }
+      .kicker {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border: 1px solid var(--card-border);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.04);
+        padding: 6px 10px;
+        color: var(--muted);
+        font-size: 12px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+      :root[data-theme='light'] .kicker {
+        background: rgba(0, 0, 0, 0.04);
+      }
+
+      .glass {
+        position: relative;
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        box-shadow: var(--shadow);
+        border: 1px solid var(--card-border);
+        border-radius: calc(var(--radius) + 4px);
+        background: var(--card);
+        isolation: isolate;
+        overflow: clip;
+      }
+      .glass::before {
+        position: absolute;
+        opacity: 0.8;
+        inset: 0 0 auto 0;
+        background: linear-gradient(
+          90deg,
+          rgba(var(--g1), 0.8),
+          rgba(var(--g2), 0.8),
+          rgba(var(--g3), 0.8),
+          rgba(var(--g4), 0.8)
+        );
+        height: 2px;
+        content: '';
+      }
+
+      /* ===========================
+         HERO
+         =========================== */
+      .hero {
+        position: relative;
+        padding: clamp(48px, 8vw, 100px) 0 48px;
+      }
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        gap: 28px;
+        padding: 28px;
+      }
+      @media (max-width: 920px) {
+        .hero-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      .title {
+        filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.25));
+        margin: 8px 0 12px;
+        background: linear-gradient(
+          90deg,
+          rgba(var(--g1), 1) 0%,
+          rgba(var(--g2), 1) 35%,
+          rgba(var(--g3), 1) 65%,
+          rgba(var(--g4), 1) 100%
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        font-weight: 800;
+        font-size: clamp(32px, 5vw, 56px);
+        line-height: 1.05;
+        letter-spacing: -0.02em;
+      }
+      .subtitle {
+        color: var(--muted);
+        font-size: clamp(16px, 2.2vw, 18px);
+      }
+      .hero-cta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 22px;
+      }
+
+      /* ===========================
+         ÇEVİRİ ANİMASYONU (EN → TR)
+         =========================== */
+      .show.show--translate {
+        display: grid;
+        position: relative;
+        grid-template-rows: auto 1fr 1fr;
+        gap: 12px;
+        border: 1px solid var(--card-border);
+        border-radius: 14px;
+        background:
+          radial-gradient(60% 120% at 20% 20%, rgba(var(--g2), 0.22), transparent 60%),
+          radial-gradient(60% 120% at 80% 80%, rgba(var(--g3), 0.2), transparent 60%),
+          linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0));
+        isolation: isolate;
+        padding: 12px;
+        height: clamp(450px, 36vh, 500px);
+        overflow: hidden;
+      }
+      .slide-head {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 4px 6px 0;
+      }
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border: 1px solid transparent;
+        border-radius: 999px;
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03)) padding-box,
+          linear-gradient(90deg, rgba(var(--g1), 0.6), rgba(var(--g2), 0.6), rgba(var(--g3), 0.6))
+            border-box;
+        padding: 6px 10px;
+        color: var(--text);
+        font-size: 12px;
+      }
+      :root[data-theme='light'] .pill {
+        background:
+          linear-gradient(180deg, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.02)) padding-box,
+          linear-gradient(90deg, rgba(var(--g1), 0.5), rgba(var(--g2), 0.5), rgba(var(--g3), 0.5))
+            border-box;
+      }
+      .pipe {
+        flex: 1;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+        height: 1px;
+      }
+      :root[data-theme='light'] .pipe {
+        background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.15), transparent);
+      }
+
+      .code {
+        position: relative;
+        border: 1px solid var(--card-border);
+        border-radius: 12px;
+        background: var(--code-bg);
+        padding: 12px;
+        height: 100%;
+        overflow: auto;
+        color: var(--text);
+        font-size: 14px;
+        line-height: 1.6;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
+      }
+      .code code {
+        display: inline;
+        white-space: pre-wrap;
+        word-break: break-word;
+        overflow-wrap: anywhere;
+      }
+      .code.en::before,
+      .code.tr::before {
+        position: absolute;
+        top: 8px;
+        right: 10px;
+        color: var(--muted);
+        font-size: 11px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .code.en::before {
+        content: 'EN';
+      }
+      .code.tr::before {
+        content: 'TR';
+      }
+
+      .src-badge {
+        position: absolute;
+        top: 8px;
+        left: 10px;
+        border: 1px solid transparent;
+        border-radius: 999px;
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03)) padding-box,
+          linear-gradient(90deg, rgba(var(--g1), 0.6), rgba(var(--g2), 0.6), rgba(var(--g3), 0.6))
+            border-box;
+        padding: 4px 10px;
+        pointer-events: none;
+        color: var(--text);
+        font-size: 11px;
+      }
+      :root[data-theme='light'] .src-badge {
+        background:
+          linear-gradient(180deg, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.02)) padding-box,
+          linear-gradient(90deg, rgba(var(--g1), 0.5), rgba(var(--g2), 0.5), rgba(var(--g3), 0.5))
+            border-box;
+      }
+
+      .caret {
+        display: inline-block;
+        transform: translateY(0.15em);
+        animation: caretBlink 0.9s step-end infinite;
+        margin-left: 2px;
+        border-right: 2px solid currentColor;
+        height: 1em;
+      }
+      @keyframes caretBlink {
+        50% {
+          border-right-color: transparent;
+        }
+      }
+
+      /* ===========================
+         Grid / Cards / Footer (aynı)
+         =========================== */
+      .section {
+        padding: 40px 0 24px;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 18px;
+      }
+      .col-4 {
+        grid-column: span 4;
+      }
+      .col-6 {
+        grid-column: span 6;
+      }
+      .col-12 {
+        grid-column: span 12;
+      }
+      @media (max-width: 920px) {
+        .col-4,
+        .col-6,
+        .col-12 {
+          grid-column: span 12;
+        }
+      }
+      .card {
+        position: relative;
+        transition:
+          transform 0.25s ease,
+          border-color 0.25s ease,
+          background 0.35s ease;
+        box-shadow: var(--shadow);
+        border: 1px solid var(--card-border);
+        border-radius: var(--radius);
+        background: var(--card);
+        isolation: isolate;
+        padding: 18px;
+        overflow: clip;
+      }
+      .card::after {
+        position: absolute;
+        opacity: 0;
+        z-index: -1;
+        transition: opacity 0.35s ease;
+        inset: -1px;
+        border-radius: calc(var(--radius) + 2px);
+        background: linear-gradient(
+          120deg,
+          rgba(var(--g1), 0.45),
+          rgba(var(--g2), 0.45),
+          rgba(var(--g3), 0.45)
+        );
+        content: '';
+      }
+      .card:hover {
+        transform: translateY(-4px);
+        border-color: rgba(255, 255, 255, 0.28);
+        background: color-mix(in oklab, var(--card) 70%, rgba(255, 255, 255, 0.08));
+      }
+      :root[data-theme='light'] .card:hover {
+        border-color: rgba(0, 0, 0, 0.16);
+        background: color-mix(in oklab, var(--card) 78%, rgba(0, 0, 0, 0.04));
+      }
+      .card:hover::after {
+        opacity: 0.7;
+      }
+      .card h3 {
+        margin: 12px 0 6px;
+        font-size: 18px;
+      }
+      .card p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .progress {
+        position: relative;
+        margin-top: 10px;
+        border: 1px solid var(--card-border);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.08);
+        height: 10px;
+        overflow: hidden;
+      }
+      :root[data-theme='light'] .progress {
+        background: rgba(0, 0, 0, 0.06);
+      }
+      .progress > span {
+        display: block;
+        transition: width 0.8s ease;
+        background: linear-gradient(
+          90deg,
+          rgba(var(--g1), 0.9),
+          rgba(var(--g2), 0.9),
+          rgba(var(--g3), 0.9)
+        );
+        width: var(--val, 0%);
+        height: 100%;
+      }
+
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .chip {
+        border: 1px solid transparent;
+        border-radius: 999px;
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03)) padding-box,
+          linear-gradient(90deg, rgba(var(--g1), 0.6), rgba(var(--g2), 0.6), rgba(var(--g3), 0.6))
+            border-box;
+        padding: 8px 12px;
+        color: var(--text);
+        font-size: 13px;
+      }
+
+      footer {
+        border-top: 1px solid var(--card-border);
+        background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.02));
+        padding: 36px 0 48px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .bg,
+        .bg::before,
+        .bg::after {
+          animation: none !important;
+        }
+        .btn,
+        .card {
+          transition: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a class="skip" href="#icerik">İçeriğe atla</a>
+    <div class="bg" aria-hidden="true"></div>
+
+    <!-- NAVBAR -->
+    <nav class="nav">
+      <div class="wrap nav-inner">
+        <div class="brand">
+          <div class="logo" aria-hidden="true"></div>
+          TR Docs Girişimi
+        </div>
+        <div class="nav-links" role="navigation" aria-label="Birincil">
+          <a href="#misyon">Misyon</a>
+          <a href="#frameworkler">Frameworkler</a>
+          <a href="#ilerleme">Çeviri Durumu</a>
+          <a href="#katki">Katkıda Bulun</a>
+          <a href="#sozluk">Sözlük</a>
+          <button
+            id="theme-toggle"
+            class="btn ghost theme-toggle"
+            type="button"
+            aria-pressed="false"
+            aria-label="Temayı değiştir"
+          >
+            <span class="sun" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M12 4V2M12 22v-2M4 12H2m20 0h-2M5 5l-1.4-1.4M20.4 20.4 19 19M19 5l1.4-1.4M4 20.4 5.4 19"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+                <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2" />
+              </svg>
+            </span>
+            <span class="moon" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </span>
+            Tema
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <header class="hero" id="misyon">
+      <div class="wrap">
+        <section class="glass">
+          <div class="hero-grid">
+            <div>
+              <span class="kicker">Topluluk Odaklı • Açık Kaynak</span>
+              <h1 class="title">
+                Türkçe <span style="white-space: nowrap">dokümantasyon</span> açığını birlikte
+                kapatıyoruz
+              </h1>
+              <p class="subtitle">
+                Piyasada Türkçe dil desteği zayıf olan popüler framework’ler için açık, tutarlı ve
+                güncel açıklamalar sağlıyoruz. Her çeviri; terim standardı, örnek kod ve sürüm
+                notlarıyla gelir.
+              </p>
+              <div class="hero-cta">
+                <a class="btn" href="#frameworkler"
+                  >Başla
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path
+                      d="M5 12h14M13 5l7 7-7 7"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                    />
+                  </svg>
+                </a>
+                <a class="btn ghost" href="#katki">Katkı Rehberi</a>
+              </div>
+            </div>
+
+            <div class="show show--translate" aria-label="Çeviri animasyonu">
+              <div class="slide-head">
+                <span class="pill">EN → TR</span>
+                <span class="pipe"></span>
+                <span class="pill">Docs Preview</span>
+              </div>
+
+              <pre class="code en"><span class="src-badge" id="en-source"></span><code>
+<span id="en-content"></span><span class="caret" aria-hidden="true"></span>
+              </code></pre>
+
+              <pre class="code tr"><span class="src-badge" id="tr-source"></span><code>
+<span id="tr-content"></span><span class="caret" aria-hidden="true"></span>
+              </code></pre>
+            </div>
+          </div>
+        </section>
+      </div>
+    </header>
+
+    <main id="icerik">
+      <section class="wrap section">
+        <div class="grid">
+          <article class="card col-4">
+            <span class="kicker">Neden?</span>
+            <h3>Türkçe erişilebilirlik</h3>
+            <p>
+              Öğrenme eşiğini düşürmek ve üretkenliği artırmak için kritik kavramları Türkçe
+              sadeleştiriyoruz.
+            </p>
+          </article>
+          <article class="card col-4">
+            <span class="kicker">Nasıl?</span>
+            <h3>Standart terimler + örnekler</h3>
+            <p>
+              Terminoloji sözlüğü, stil rehberi ve çalışır örneklerle çevirileri bütünlüklü
+              sunuyoruz.
+            </p>
+          </article>
+          <article class="card col-4">
+            <span class="kicker">Hedef</span>
+            <h3>Sürümlerle güncel kalmak</h3>
+            <p>
+              Her framework için sürüm takibi yapıp değişiklikleri Türkçe notlarla yayımlıyoruz.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="wrap section" id="frameworkler" aria-labelledby="fw-title">
+        <h2 id="fw-title" class="title" style="font-size: clamp(24px, 3.6vw, 36px)">
+          Desteklenen Frameworkler
+        </h2>
+        <p class="subtitle" style="margin-top: 6px">
+          Aşağıdaki kartlardan birini seçerek Türkçe dokümantasyona geçebilirsin.
+        </p>
+
+        <div class="grid" style="margin-top: 16px">
+          <article class="card col-4">
+            <span class="badge dot">Next.js • Çeviri %65</span>
+            <h3>Yol Haritası</h3>
+            <p>
+              App Router, Routing, Data Fetching, Metadata bölümleri çevirildi; Image/OG ve RSC
+              derinleştiriliyor.
+            </p>
+            <div class="progress" style="--val: 65%"><span></span></div>
+          </article>
+          <article class="card col-4">
+            <span class="badge dot">Astro • Çeviri %40</span>
+            <h3>Yol Haritası</h3>
+            <p>
+              Content Collections ve Islands Architecture tamam; Integrations üzerinde çalışılıyor.
+            </p>
+            <div class="progress" style="--val: 40%"><span></span></div>
+          </article>
+          <article class="card col-4">
+            <span class="badge dot">Svelte • Çeviri %30</span>
+            <h3>Yol Haritası</h3>
+            <p>Reactivity temel kılavuzları hazır; SvelteKit yönlendirme ve form actions sırada.</p>
+            <div class="progress" style="--val: 30%"><span></span></div>
+          </article>
+          <article class="card col-4">
+            <span class="badge dot">Remix • Çeviri %20</span>
+            <h3>Yol Haritası</h3>
+            <p>Loaders/Actions giriş seviyesinde; Routes ve Nested UI planlandı.</p>
+            <div class="progress" style="--val: 20%"><span></span></div>
+          </article>
+          <article class="card col-4">
+            <span class="badge dot">SolidStart • Çeviri %15</span>
+            <h3>Yol Haritası</h3>
+            <p>Signals kavramı özetlendi; Routing ve Server Functions beklemede.</p>
+            <div class="progress" style="--val: 15%"><span></span></div>
+          </article>
+          <article class="card col-4">
+            <span class="badge dot">Angular • Çeviri %50</span>
+            <h3>Yol Haritası</h3>
+            <p>
+              Standalone Components ve Signals bölümleri eklendi; Formlar ve Router güncelleniyor.
+            </p>
+            <div class="progress" style="--val: 50%"><span></span></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="wrap section" id="ilerleme" aria-labelledby="pr-title">
+        <div class="glass" style="padding: 22px; text-align: center">
+          <h2 id="pr-title" class="title" style="font-size: clamp(24px, 3.6vw, 36px)">
+            Genel Çeviri Durumu
+          </h2>
+          <p class="subtitle">Toplam 6 framework • 120+ sayfa • 200+ terim standardize edildi</p>
+          <div style="max-width: 720px; margin: 16px auto 0">
+            <div class="progress" style="--val: 48%"><span></span></div>
+            <p class="subtitle" style="margin-top: 8px">Genel ilerleme tahmini: %48</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="wrap section" id="sozluk" aria-labelledby="gl-title">
+        <h2 id="gl-title" class="title" style="font-size: clamp(24px, 3.6vw, 36px)">
+          Terminoloji Sözlüğü (Önizleme)
+        </h2>
+        <p class="subtitle" style="margin-top: 6px">
+          İngilizce→Türkçe karşılıklar; tutarlı çeviri için önerilen kullanım.
+        </p>
+        <div class="grid" style="margin-top: 16px">
+          <article class="card col-6">
+            <span class="kicker">Genel</span>
+            <div class="chips" style="margin-top: 10px">
+              <span class="chip">render → işlemek/oluşturmak</span
+              ><span class="chip">state → durum</span><span class="chip">fetch → veri çekmek</span
+              ><span class="chip">fallback → yedek içerik</span
+              ><span class="chip">lazy load → tembel yükleme</span>
+            </div>
+          </article>
+          <article class="card col-6">
+            <span class="kicker">Rotalama</span>
+            <div class="chips" style="margin-top: 10px">
+              <span class="chip">route → rota</span
+              ><span class="chip">nested routes → iç içe rotalar</span
+              ><span class="chip">params → parametreler</span
+              ><span class="chip">middleware → ara katman</span
+              ><span class="chip">preloading → ön yükleme</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="wrap section" id="katki" aria-labelledby="ct-title">
+        <div class="glass" style="padding: 22px; text-align: center">
+          <h2 id="ct-title" class="title" style="font-size: clamp(24px, 3.6vw, 36px)">
+            Katkıda Bulun
+          </h2>
+          <p class="subtitle">
+            Çeviri ekibine katılabilir, düzeltme gönderebilir veya örnekler ekleyebilirsin.
+          </p>
+          <div style="margin-top: 14px">
+            <a class="btn" href="#">Katkı Rehberi</a>
+            <a class="btn ghost" href="#" style="margin-left: 8px">Stil Rehberi</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="wrap" role="contentinfo">
+        © 2025 TR Docs Girişimi • Açık kaynak topluluk projesi. Erişilebilirlik için
+        <em>prefers-reduced-motion</em> desteklenir.
+      </div>
+    </footer>
+
+    <script>
+      /* ---------- Tema toggle (persist) ---------- */
+      const root = document.documentElement;
+      const toggleBtn = document.getElementById('theme-toggle');
+      function applyTheme(theme) {
+        root.setAttribute('data-theme', theme);
+        toggleBtn.setAttribute('aria-pressed', String(theme === 'light'));
+        localStorage.setItem('theme', theme);
+      }
+      (function initTheme() {
+        const saved = localStorage.getItem('theme');
+        if (saved === 'light' || saved === 'dark') applyTheme(saved);
+      })();
+      toggleBtn.addEventListener('click', () => {
+        const cur = root.getAttribute('data-theme') || 'dark';
+        applyTheme(cur === 'dark' ? 'light' : 'dark');
+      });
+
+      /* ---------- Çeviri verileri ---------- */
+      const docs = [
+        {
+          en: {
+            title: '# Dynamic Routes',
+            content:
+              'Use folders like [id] to create dynamic routes.\nAccess params via params.id in your page.',
+            source: 'Next.js • Routing',
+          },
+          tr: {
+            title: '# Dinamik Rotalar',
+            content:
+              '[id] gibi klasörler oluşturarak dinamik rotalar oluşturun.\nSayfada parametrelere params.id ile erişin.',
+            source: 'Türkçe Çeviri • Routing',
+          },
+        },
+        {
+          en: {
+            title: '# Linting Setup',
+            content:
+              "Use ESLint to enforce code quality.\nExtend 'next/core-web-vitals' and run it on pre-commit.",
+            source: 'eslint',
+          },
+          tr: {
+            title: '# Lint Kurulumu',
+            content:
+              "Kod kalitesi için ESLint kullanın.\n'next/core-web-vitals' ile genişletin ve pre-commit'te çalıştırın.",
+            source: 'Türkçe Çeviri • ESLint',
+          },
+        },
+        {
+          en: {
+            title: '# Fetching on the Server',
+            content:
+              'Use async functions and call fetch in page.tsx.\nThis avoids waterfalls and improves TTFB.',
+            source: 'Next.js • Data Fetching',
+          },
+          tr: {
+            title: '# Sunucuda Veri Çekme',
+            content:
+              "async fonksiyonlar kullanın ve fetch'i page.tsx içinde çağırın.\nBu yaklaşım waterfall'ü önler ve TTFB’yi iyileştirir.",
+            source: 'Türkçe Çeviri • Veri Çekme',
+          },
+        },
+      ];
+
+      const enTarget = document.getElementById('en-content');
+      const trTarget = document.getElementById('tr-content');
+      const enSource = document.getElementById('en-source');
+      const trSource = document.getElementById('tr-source');
+
+      const SPEED = 50; // karakter başına ms
+      const LINE_PAUSE = 220; // satır arası bekleme
+      const DOC_PAUSE = 900; // EN -> TR geçiş beklemesi
+      const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+      function setSource(el, text) {
+        if (text && String(text).trim().length) {
+          el.textContent = 'Kaynak: ' + text;
+          el.style.display = 'inline-flex';
+        } else {
+          el.textContent = '';
+          el.style.display = 'none';
+        }
+      }
+
+      function getScroller(target) {
+        return target.closest('.code');
+      }
+      function resetScroll(target) {
+        const scroller = getScroller(target);
+        if (scroller) scroller.scrollTop = 0;
+      }
+      function scrollToBottom(target) {
+        const scroller = getScroller(target);
+        if (scroller) scroller.scrollTop = scroller.scrollHeight;
+      }
+
+      async function typeText(target, text) {
+        const lines = String(text).split('\n');
+        target.textContent = '';
+        resetScroll(target);
+        for (let li = 0; li < lines.length; li++) {
+          const line = lines[li];
+          for (const ch of line) {
+            target.textContent += ch;
+            scrollToBottom(target);
+            await sleep(SPEED);
+          }
+          if (li < lines.length - 1) {
+            target.textContent += '\n';
+            scrollToBottom(target);
+            await sleep(LINE_PAUSE);
+          }
+        }
+      }
+
+      async function typeDocPair(pair) {
+        setSource(enSource, pair.en?.source || '');
+        setSource(trSource, pair.tr?.source || '');
+        await typeText(enTarget, `${pair.en.title}\n${pair.en.content}`);
+        await sleep(DOC_PAUSE);
+        await typeText(trTarget, `${pair.tr.title}\n${pair.tr.content}`);
+      }
+
+      async function runLoop() {
+        let i = 0;
+        while (true) {
+          const pair = docs[i % docs.length];
+          enTarget.textContent = '';
+          trTarget.textContent = '';
+          await typeDocPair(pair);
+          await sleep(1200);
+          i++;
+        }
+      }
+      runLoop();
+    </script>
+  </body>
+</html>

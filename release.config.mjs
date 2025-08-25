@@ -6,13 +6,9 @@ const config = {
   plugins: [
     '@semantic-release/commit-analyzer',
     '@semantic-release/release-notes-generator',
-    [
-      '@semantic-release/github',
-      {
-        successComment: false,
-        failTitle: false,
-      },
-    ],
+    ['@semantic-release/changelog', { changelogFile: 'CHANGELOG.md' }],
+    ['@semantic-release/git', { assets: ['CHANGELOG.md'] }],
+    ['@semantic-release/github', { successComment: false, failTitle: false }],
   ],
 };
 

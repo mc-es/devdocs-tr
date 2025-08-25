@@ -155,6 +155,13 @@ You can extend or customize this system by editing or adding logic in the follow
 
 ---
 
+## 📊 Weekly Commit Type Stats
+```
+chore    :  5 commits (100%)
+```
+
+---
+
 ## 📘 Resources
 
 - [📖 Conventional Commits](https://www.conventionalcommits.org/)

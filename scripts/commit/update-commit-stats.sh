@@ -81,6 +81,7 @@ awk -v title="$SECTION_TITLE" '
 # 8) Build new stats section
 STATS_SECTION="$(cat <<EOF
 $SECTION_TITLE
+
 \`\`\`
 $(cat "$TMP_CHART")
 \`\`\`

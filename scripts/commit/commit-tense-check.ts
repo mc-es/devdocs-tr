@@ -62,11 +62,11 @@ async function suggestPresentTenseMessage(text: string): Promise<string> {
 
     if (isPast) {
       const suggestion = await suggestPresentTenseMessage(message);
-      console.info('\x1b[33m💡 Suggested fix:\x1b[0m', suggestion);
+      console.warn('\x1b[33m💡 Suggested fix:\x1b[0m', suggestion);
       process.exit(1);
     }
 
-    console.info('\x1b[32m✅ Commit message passed.\x1b[0m');
+    console.warn('\x1b[32m✅ Commit message passed.\x1b[0m');
     process.exit(0);
   } catch (error: unknown) {
     if (error instanceof Error) console.error('\x1b[31m❌ Error:\x1b[0m', error.message);

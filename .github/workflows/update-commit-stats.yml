@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
 
 concurrency:
   group: weekly-commit-stats
@@ -33,14 +34,11 @@ jobs:
       - name: Run stats update script
         run: ./scripts/commit/update-commit-stats.sh
 
-      - name: Commit and push changes if needed
-        env:
-          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
-        run: |
-          if [[ -n "$(git status --porcelain .husky/README.md)" ]]; then
-            git add .husky/README.md
-            git commit -m "chore(docs): update weekly commit stats"
-            git push origin "HEAD:${DEFAULT_BRANCH}"
-          else
-            echo "No changes to commit."
-          fi
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: 'chore(docs): update weekly commit stats'
+          branch: update/weekly-commit-stats
+          title: 'chore(docs): update weekly commit stats'
+          body: 'This PR updates the weekly commit stats.'
+          base: master

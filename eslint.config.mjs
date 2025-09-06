@@ -77,7 +77,6 @@ const eslintConfig = [
       'no-cond-assign': 'error',
       'no-console': ['error', { allow: ['warn', 'error'] }],
       'no-constant-binary-expression': 'error',
-      'no-constant-binary-expression': 'error',
       'no-delete-var': 'error',
       'no-dupe-else-if': 'error',
       'no-duplicate-case': 'error',

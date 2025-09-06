@@ -17,7 +17,7 @@ const ThemeSwitcher = (): React.ReactElement => {
     <button
       onClick={() => setTheme(isDark ? 'light' : 'dark')}
       type="button"
-      className="cursor-pointer rounded bg-zinc-200 px-4 py-2 transition-colors hover:bg-zinc-300 dark:bg-zinc-600 dark:hover:bg-zinc-600"
+      className="cursor-pointer rounded bg-zinc-200 px-4 py-2 transition-colors hover:bg-zinc-600 dark:bg-zinc-600 dark:hover:bg-zinc-600"
     >
       <p className="dark:text-zinc-300">{isDark ? '🌞 Light Mode' : '🌙 Dark Mode'}</p>
     </button>

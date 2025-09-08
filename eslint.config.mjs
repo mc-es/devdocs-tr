@@ -33,6 +33,7 @@ const eslintConfig = [
       'coverage/**',
       'public/**',
       '*.config.*',
+      '*.d.ts',
     ],
   },
   {

@@ -29,10 +29,10 @@ jobs:
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
       - name: Make script executable
-        run: chmod +x scripts/commit/update-commit-stats.sh
+        run: chmod +x scripts/commits/update-commit-stats.sh
 
       - name: Run stats update script
-        run: ./scripts/commit/update-commit-stats.sh
+        run: ./scripts/commits/update-commit-stats.sh
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6

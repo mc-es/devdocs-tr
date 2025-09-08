@@ -1,8 +1,10 @@
+import type { JSX, PropsWithChildren } from 'react';
+
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 
-import { ThemeProvider } from '@/components/theme';
-import { cn } from '@/lib/cn';
+import { ThemeProvider } from '@/providers';
+import { cn } from '@/utils';
 
 import './globals.css';
 
@@ -21,11 +23,7 @@ export const metadata: Metadata = {
   description: 'Free and open source API documentation browser with Turkish translations.',
 };
 
-const RootLayout = ({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>): React.ReactElement => (
+const RootLayout = ({ children }: PropsWithChildren): JSX.Element => (
   <html lang="en" suppressHydrationWarning>
     <body className={cn(geistSans.variable, geistMono.variable, 'antialiased')}>
       <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>

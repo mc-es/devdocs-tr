@@ -156,8 +156,11 @@ You can extend or customize this system by editing or adding logic in the follow
 ---
 
 ## 📊 Weekly Commit Type Stats
+
 ```
-chore    :  5 commits (100%)
+chore    : 13 commits (72%)
+feat     :  4 commits (22%)
+fix      :  1 commit (6%)
 ```
 
 ---

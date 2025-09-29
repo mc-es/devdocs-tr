@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "@commitlint/cli": "^19.8.1",
-    "@commitlint/config-conventional": "^19.8.1",
+    "@commitlint/config-conventional": "^20.0.0",
     "@eslint/eslintrc": "^3",
     "@google/generative-ai": "^0.24.1",
     "@next/bundle-analyzer": "^15.5.2",
